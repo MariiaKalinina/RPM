@@ -1,0 +1,71 @@
+# ==============================================================================
+# Rock Properties Input File
+# Rock Type: Carbonates, Sandstones
+# Problem: Forward Modeling
+# ==============================================================================
+
+# COLUMN LEGEND:
+# Phase | Component | Thermal_Conductivity | Aspect_Ratio | Volume | Hierarchy | Model_Type
+# ----------------------------------------------------------------------------------------
+
+# PRIMARY PHASES
+# ----------------------------------------------------------------------------------------
+Phase          Component    Thermal_Conductivity  Aspect_Ratio  Volume  Hierarchy  Model_Type
+SiO2_Phase     Quartz       7.0                   1.0           0.90     0         HSA         
+SiO2_Phase     Chalz        1.2                   1.0           0.10     0         HSA        
+OM_Phase       KerT1        2.000                 1.0           0.80     1         LIH
+OM_Phase       KerT2        0.020                 1.0           0.20     1         LIH
+
+# MIXTURE 1: SiO2_Phase + Clay_Phase + OM_Phase
+# ----------------------------------------------------------------------------------------
+Mix1           SiO2_Phase   -                     1.000         0.70     -         GSA
+Mix1           Clay_Phase   2.0                   0.001         0.05     -         GSA
+Mix1           OM_Phase     -                     0.100         0.25     -         GSA
+
+# FLUID PHASES
+# ----------------------------------------------------------------------------------------
+Fluid_Phase    Pore1        0.600                 -             0.50     0         LIH
+Fluid_Phase    Pore2        0.025                 -             0.50     0         LIH
+
+# MIXTURE 2: Mix1 + Fluid_Phase_Pore + Fluid_Phase_Cracks
+# ----------------------------------------------------------------------------------------
+Mix2           Mix1          -                    1.000         0.70     -         GSA
+Mix2           Fluid_Phase   -                    0.001         0.27     -         GSA
+Mix2           Cracks        0.025                0.100         0.03     -         GSA
+
+# MIXTURE 3: Mix2 + Calcite + Dolomite + Pyrite
+# ----------------------------------------------------------------------------------------
+Mix3           Mix2          -             1.0            0.70     -         MAX
+Mix3           Calcite       3.2           1.0            0.10     -         MAX
+Mix3           Dolomite      2.2           1.0            0.10     -         MAX
+Mix3           Pyrite        6.6           1.0            0.10     -         MAX
+
+# ==============================================================================
+# PARAMETER RANGES FOR SENSITIVITY ANALYSIS
+# ==============================================================================
+
+# Thermal conductivity range for SiO2_Phase components
+#* Thermal_Conductivity, SiO2_Phase, Chalz | 1.0, 2.0, 3.0
+
+# Aspect ratio range for fluid phase cracks (logarithmic range)
+#* Aspect_Ratio, Mix2, Cracks | R: 1e-4, 1, 10
+
+# Aspect ratio range for OM_Phase in Mix1 (discrete values)
+#* Aspect_Ratio, OM_Phase, KerT1 | 1e-4, 1e-3, 1e-2, 1e-1, 1
+
+# Aspect ratio range for OM_Phase in Mix1 (discrete values)
+* Aspect_Ratio, Mix1, OM_Phase | 1e-4, 1e-3, 1e-2, 1e-1, 1
+
+# Volume fraction range for fluid phase in Mix2 (continuous range)
+#* Volume, Mix2, Mix1 | R: 0.0, 1.0, 11
+
+# Volume fraction range for Mix2 in final mixture (continuous range)
+#* Volume, Mix3, Mix2 | R: 0.0, 1.0, 11
+
+# ==============================================================================
+# NOTES:
+# - Use '-' for undefined or not applicable values
+# - Hierarchy: Lower numbers = higher priority in mixing models
+# - Model Types: HSA, LIH, GSA, MAX as defined in your simulation software
+# - R: indicates range specification (min, max, steps)
+# ==============================================================================

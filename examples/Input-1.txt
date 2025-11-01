@@ -1,0 +1,24 @@
+# Rock Properties Input File
+Rock Type: Carbonates, Sandstones
+Problem: Forward
+
+# PRIMARY PHASES
+# ----------------------------------------------------------------------------------------
+Phase          Component       Thermal_Conductivity  Aspect_Ratio  Volume  Level  Model_Type
+Solid_Phase    Quartz          7.0                   1.0           0.70    0      HSA
+Solid_Phase    Clay            1.2                   1.0           0.30    0      HSA
+Fluid_Phase    Pore            0.600                 0.1           -       1      -
+Fluid_Phase    Cracks          0.025                 0.001         -       2      -
+
+# MIXTURE 3: Solid_Phase + Fluid_Phase
+# ----------------------------------------------------------------------------------------
+Mix            Solid_Phase     -                     1.0           0.80    -      GSA
+Mix            Fluid_Phase     -                     0.1           0.20    -      GSA
+
+# Parameter Range Lines
+#* Thermal_Conductivity,Solid_Phase,Clay | 1.0,2.0,3.0,4.0
+#* Aspect_Ratio,Fluid_Phase,Pore | 1e-4,1e-3,1e-2,1e-1,1
+#* Aspect_Ratio,Fluid_Phase,Cracks | R:1e-4,1,50
+#* Volume,Fluid_Phase,Pore | R:0.0,1.0,10
+#* Volume,Mix,Fluid_Phase | R:0.0,0.2,10
+* Aspect_Ratio,Mix,Fluid_Phase | R:1e-4,1,5
