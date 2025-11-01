@@ -14,6 +14,10 @@ A Python tool for calculating effective thermal conductivity of rocks using vari
 ### Installation
 
 ```bash
+## Basic Usage
+python src/forward_isotropic_solver.py examples/Input-3.txt
+
+## Google Colab
 !git clone https://github.com/MariiaKalinina/RPM.git
 pip install -r requirements.txt
 %cd RPM/src
